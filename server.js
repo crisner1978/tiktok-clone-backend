@@ -3,8 +3,15 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import Data from "./data.js";
 import Videos from "./dbModel.js";
+const cors = require('cors')
 
 // app Config
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionSuccessStatus: 200
+}
+
+app.use(cors(corsOptions));
 
 const app = express();
 const port = process.env.PORT || 9000;
