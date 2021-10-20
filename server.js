@@ -13,7 +13,7 @@ const port = process.env.PORT || 9000;
 
 // Middlewares
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'https://tiktok-clone-rise.web.app/',
   optionSuccessStatus: 200
 }
 
