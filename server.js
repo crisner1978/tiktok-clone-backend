@@ -1,32 +1,31 @@
-import express from "express";
-import mongoose from "mongoose";
-import dotenv from "dotenv";
-import Data from "./data.js";
-import Videos from "./dbModel.js";
+const express = require('express')
+const mongoose = require('mongoose')
+require('dotenv').config();
 const cors = require('cors')
 
 // app Config
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  optionSuccessStatus: 200
-}
 
-app.use(cors(corsOptions));
 
 const app = express();
 const port = process.env.PORT || 9000;
 dotenv.config();
 
 // Middlewares
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionSuccessStatus: 200
+}
+
+app.use(cors(corsOptions));
 app.use(express.json());
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*"),
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
-    );
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*"),
+//     res.header(
+//       "Access-Control-Allow-Headers",
+//       "Origin, X-Requested-With, Content-Type, Accept"
+//     );
+//   next();
+// });
 
 // DB Config
 const db_url = process.env.DB_URI;
@@ -50,6 +49,18 @@ app.get("/v2/posts", (req, res) => {
     }
   });
 });
+
+const tiktokSchema = mongoose.Schema({
+  url: String,
+  channel: String,
+  song: String,
+  likes: String,
+  messages: String,
+  description: String,
+  shares: String,
+});
+
+let Videos = mongoose.model('tiktokvideos', tiktokSchema);
 
 app.post("/v2/posts", (req, res) => {
   const dbVideos = req.body;
